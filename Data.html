@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Tamu - Hotel</title>
+    <link rel="stylesheet" href="/style/Data.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Hotel</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="data.html">Data Tamu</a></li>
+                <li><a href="form.html">Formulir Tamu</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="table-container">
+        <h2>Data Tamu</h2>
+        <table id="guest-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Nama &#x21C5;</th>
+                    <th onclick="sortTable(1)">Alamat &#x21C5;</th>
+                    <th onclick="sortTable(2)">Nomor Telepon &#x21C5;</th>
+                    <th onclick="sortTable(3)">Tanggal Check-in &#x21C5;</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="guest-table-body">
+                <!-- Data tamu akan dimasukkan di sini oleh JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hotel. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        // Fungsi untuk menampilkan data tamu dari Local Storage ke tabel
+        function displayGuests() {
+            const guests = JSON.parse(localStorage.getItem('guests')) || [];
+            const tableBody = document.getElementById('guest-table-body');
+
+            // Kosongkan tabel sebelum mengisi data
+            tableBody.innerHTML = '';
+
+            guests.forEach((guest, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${guest.name}</td>
+                    <td>${guest.address}</td>
+                    <td>${guest.phone}</td>
+                    <td>${guest.checkinDate}</td>
+                    <td><button onclick="deleteGuest(${index})">Hapus</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk menghapus data tamu
+        function deleteGuest(index) {
+            const guests = JSON.parse(localStorage.getItem('guests')) || [];
+            guests.splice(index, 1); // Hapus tamu dari array
+            localStorage.setItem('guests', JSON.stringify(guests)); // Simpan kembali ke Local Storage
+            displayGuests(); // Tampilkan kembali tabel
+        }
+
+        // Fungsi untuk mengurutkan tabel
+        function sortTable(columnIndex) {
+            const table = document.getElementById("guest-table");
+            let switching = true;
+            let shouldSwitch;
+            let dir = "asc"; // Mengurutkan naik
+            let switchCount = 0;
+
+            while (switching) {
+                switching = false;
+                const rows = table.rows;
+
+                for (let i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    const x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    const y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchCount++; // Hitung jumlah pergantian
+                } else {
+                    if (switchCount === 0 && dir === "asc") {
+                        dir = "desc"; // Ubah arah ke turun
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        // Panggil fungsi untuk menampilkan tamu saat halaman dimuat
+        window.onload = displayGuests;
+    </script>
+</body>
+</html>

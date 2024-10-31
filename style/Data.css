@@ -1,0 +1,52 @@
+.table-container {
+    max-width: 800px; /* Lebar maksimum kontainer */
+    margin: 50px auto; /* Tengah secara horizontal dan memberi jarak dari atas */
+    padding: 30px; /* Padding yang lebih besar */
+    background: linear-gradient(135deg, #ffffff, #f0f7ff); /* Gradasi latar belakang */
+    border-radius: 15px; /* Sudut membulat */
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+    text-align: center; /* Teks di tengah */
+}
+
+.table-container h2 {
+    color: #4a90e2; /* Warna judul */
+}
+
+table {
+    width: 100%; /* Lebar penuh tabel */
+    border-collapse: collapse; /* Menggabungkan border */
+    margin-top: 20px; /* Jarak atas */
+}
+
+th, td {
+    padding: 12px; /* Padding dalam */
+    border: 1px solid #ddd; /* Border untuk sel */
+}
+
+th {
+    background-color: #4a90e2; /* Warna latar belakang header */
+    color: white; /* Warna teks header */
+    cursor: pointer; /* Tangan saat hover */
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Warna latar belakang baris genap */
+}
+
+tr:hover {
+    background-color: #e0f7fa; /* Warna saat hover */
+}
+
+button {
+    background-color: #d9534f; /* Warna tombol hapus */
+    color: white; /* Warna teks tombol */
+    border: none; /* Tanpa border */
+    padding: 5px 10px; /* Padding dalam tombol */
+    border-radius: 5px; /* Sudut membulat */
+    cursor: pointer; /* Pointer saat hover */
+    transition: background-color 0.3s; /* Transisi saat hover */
+}
+
+button:hover {
+    background-color: #c9302c; /* Warna saat hover */
+}

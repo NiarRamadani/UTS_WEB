@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Tamu - Hotel</title>
+    <link rel="stylesheet" href="/style/Form.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Hotel</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="data.html">Data Tamu</a></li>
+                <li><a href="form.html">Formulir Tamu</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="form-container">
+        <h2>Formulir Tamu</h2>
+        <form id="guest-form">
+            <input type="text" id="guest-name" placeholder="Nama Tamu" required>
+            <input type="text" id="guest-address" placeholder="Alamat" required>
+            <input type="tel" id="guest-phone" placeholder="Nomor Telepon" required>
+            <input type="date" id="checkin-date" required>
+            <button type="submit">Tambah Tamu</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hotel. Semua hak dilindungi.</p>
+    </footer>
+
+    <script>
+        document.getElementById('guest-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah pengiriman formulir secara default
+
+            // Ambil nilai dari input
+            const name = document.getElementById('guest-name').value;
+            const address = document.getElementById('guest-address').value;
+            const phone = document.getElementById('guest-phone').value;
+            const checkinDate = document.getElementById('checkin-date').value;
+
+            // Menyimpan data tamu ke Local Storage (sebagai contoh)
+            let guests = JSON.parse(localStorage.getItem('guests')) || [];
+            guests.push({ name, address, phone, checkinDate });
+            localStorage.setItem('guests', JSON.stringify(guests));
+
+            // Reset formulir
+            this.reset();
+            alert('Data tamu berhasil ditambahkan!');
+        });
+    </script>
+</body>
+</html>
